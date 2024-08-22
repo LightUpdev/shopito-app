@@ -38,9 +38,7 @@ app.use(errorHandler);
 
 ////////////////////////////////////////////////////////////////////////
 //-------------------------deployment---------------------------------//
-const __dirname1 = path.resolve(
-  "C:/Users/user/OneDrive/Desktop/Shopito-app/"
-);
+const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
