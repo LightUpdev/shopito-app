@@ -1,0 +1,27 @@
+.error-page-container {
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  color: red;
+  text-align: center;
+  justify-self: center;
+  align-self: center;
+  margin: 150px auto 0 auto;
+
+}
+.btn{
+    align-self: center ;
+    padding: .9rem;
+    background-color: red;
+    border: none;
+    width : 25%
+}
+
