@@ -19,7 +19,7 @@ import { useDispatch } from "react-redux";
 import { getUser } from "./Redux/Features/auth/authSlice";
 
 const App = () => {
-  axios.defaults.withCredentials = true;
+  axios.defaults.withCredentials = false;
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dispatch = useDispatch();
 
