@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./ProductForm.css";
+import { useSelector } from "react-redux";
 
 const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
     image: null,
   });
 
+  const { isLoading } = useSelector((state) => state.product);
   useEffect(() => {
     if (formType === "update" && initialData) {
       setFormData(initialData);
@@ -141,7 +143,11 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
           />
         </div>
         <button type="submit" className="submit-button">
-          {formType === "create" ? "Create Product" : "Update Product"}
+          {formType === "create"
+            ? isLoading
+              ? "Loading..."
+              : "Create Product"
+            : "Update Product"}
         </button>
       </form>
     </div>
