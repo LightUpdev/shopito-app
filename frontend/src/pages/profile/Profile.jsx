@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "../../components/Card/Card";
 import { useEffect } from "react";
 import {
+  getUser,
   updateUser,
   updateUserPhoto,
 } from "../../Redux/Features/auth/authSlice";
@@ -35,12 +36,10 @@ const Profile = () => {
   const [profileImg, setProfileImg] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   if (user === null) {
-  //     dispatch(getUser());
-  //   }
-  // }, [dispatch, user]);
+  
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   useEffect(() => {
     if (user) {
