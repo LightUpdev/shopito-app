@@ -22,12 +22,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "https://shopito-app-frontend.onrender.com"],
-    credentials: true,
-  })
-);
+app.use(cors());
 
 // Routes
 app.use("/api/users", UserRoute);

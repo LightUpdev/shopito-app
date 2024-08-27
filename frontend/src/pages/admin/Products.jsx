@@ -10,16 +10,18 @@ import {
 
 const Products = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { product, isLoading } = useSelector((state) => state.product);
-
-  const deletedProduct = async(id) => {
-    await dispatch(deleteProduct(id));
-  };
-
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+  const navigate = useNavigate();
+  const { product, isLoading } = useSelector((state) => state.product);
+
+  const deletedProduct = async (id) => {
+    const res = await dispatch(deleteProduct(id));
+    if (res) {
+      dispatch(getProducts());
+    }
+  };
 
   return (
     <div className="products-container">
