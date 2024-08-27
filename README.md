@@ -48,6 +48,6 @@ This project is a Product Management application built using the MERN stack (Mon
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/LightUpdev/shopito-app.git
    cd your-repo-name
 # shopito-app
