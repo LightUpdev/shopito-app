@@ -1,7 +1,6 @@
 import axiosInstance from "../../../axiosInstance";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-export const API_URL = `${BACKEND_URL}/api/product`;
+export const API_URL = `/api/product`;
 
 // create product
 
