@@ -57,7 +57,7 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <BrowserRouter basename="">
         <ToastContainer />
         <Header isAuthenticated={isAuthenticated} />
         <Routes>

@@ -9,6 +9,13 @@ import { errorHandler } from "./middleware/errorMiddleware.js";
 import fs from "fs";
 import path from "path";
 import bodyParser from "body-parser";
+import { fileURLToPath } from "url";
+
+// Get the current file path
+const __filename = fileURLToPath(import.meta.url);
+
+// Get the directory name
+const __dirname = path.dirname(__filename);
 
 // initialize app with express
 const app = express();
@@ -33,18 +40,21 @@ app.use(errorHandler);
 
 ////////////////////////////////////////////////////////////////////////
 //-------------------------deployment---------------------------------//
-const __dirname1 = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname1, "/frontend/build")));
+  // Serve static files from the React app
+  app.use(express.static(path.join(__dirname, "client/build")));
+  // The catch-all handler: for any request that doesn't
+  // match one above, send back React's index.html file.
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname1, "", "build", "index.html"));
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
   });
 } else {
   app.get("/", (req, res) => {
     res.send("Home Page...");
   });
 }
+console.log(__dirname);
 
 //-------------------------deployment---------------------------------//
 
