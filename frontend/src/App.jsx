@@ -17,6 +17,7 @@ import axiosInstance from "./axiosInstance";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { getUser } from "./Redux/Features/auth/authSlice";
+import { getProducts } from "./Redux/Features/product/productSlice";
 
 const App = () => {
   axios.defaults.withCredentials = false;
@@ -48,6 +49,10 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getProducts());
   }, [dispatch]);
 
   return (

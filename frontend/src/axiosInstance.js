@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://shopito-app-fdof.onrender.com",
+  baseURL: "https://shopito-app-frontend.onrender.com",
 });
 
 axiosInstance.interceptors.request.use(

@@ -3,25 +3,32 @@ import { shortenText } from "../../utils";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getProducts } from "../../Redux/Features/product/productSlice";
+import {
+  getProducts,
+  deleteProduct,
+} from "../../Redux/Features/product/productSlice";
 
 const Products = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { product, isLoading } = useSelector((state) => state.product);
-  console.log(product);
+
+  const deletedProduct = async(id) => {
+    await dispatch(deleteProduct(id));
+  };
 
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
 
-
   return (
     <div className="products-container">
       <h1 className="products-title">Products</h1>
       <div className="products-list">
-        {product.length < 1 || isLoading === true ? (
+        {isLoading === true ? (
           <h3>Loading...</h3>
+        ) : product?.length < 1 ? (
+          <h3>No product to display</h3>
         ) : (
           product?.map((product) => (
             <div key={product._id} className="product-card">
@@ -47,7 +54,12 @@ const Products = () => {
                 </button>
                 <p className="product-price">${product.price}</p>
 
-                <button className="btn-danger">Delete</button>
+                <button
+                  className="btn-danger"
+                  onClick={() => deletedProduct(product._id)}
+                >
+                  Delete
+                </button>
               </div>
             </div>
           ))
