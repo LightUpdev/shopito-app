@@ -19,19 +19,18 @@ const UpdateProduct = () => {
   const product = productData.find((product) => product._id === id);
 
   const initialState = {
-    name: product.name,
-    image: product.image,
-    price: product.price,
-    color: product.color,
-    regularPrice: product.regularPrice,
-    description: product.description,
-    category: product.category,
-    brand: product.brand,
+    name: product.name || "",
+    image: product.image || "",
+    price: product.price || "",
+    color: product.color || "",
+    regularPrice: product.regularPrice || "",
+    description: product.description || "",
+    category: product.category || "",
+    brand: product.brand || "",
   };
 
   const [initialData, setInitialData] = useState(initialState);
 
-  
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -45,35 +44,14 @@ const UpdateProduct = () => {
     fetchProduct();
   }, [id]);
 
-  const handleUpdateProduct = async (formData) => {
-    if (formData?.image !== null) {
-      const data = new FormData();
-      data.append("file", formData?.image);
-      data.append("upload_preset", "shopitoApp");
-
-      try {
-        const res = await axios.post(cloudinaryUrl, data);
-        const { secure_url } = await res.data;
-
-        setInitialData({
-          name: product.name || formData.name,
-          image: product.image || secure_url,
-          price: product.price || formData.price,
-          color: product.color || formData.color,
-          regularPrice: product.regularPrice || formData.regularPrice,
-          description: product.description || formData.description,
-          category: product.category || formData.category,
-          brand: product.brand || formData.brand,
-        });
-        return await secure_url;
-      } catch (error) {
-        console.log(error);
-      }
+  const handleUpdateProduct = async (formData = { initialData }) => {
+    const response =await dispatch(updateProduct({ formData, id }));
+    if (response) {
+      navigate("/admin/products");
     }
-    dispatch(updateProduct({ initialData, id }));
-
-    navigate("/products");
-    // save data to database
+    console.log(response);
+    console.log(formData);
+    console.log(initialData);
   };
 
   return (
@@ -82,6 +60,7 @@ const UpdateProduct = () => {
       image={product.image}
       onSubmit={handleUpdateProduct}
       initialData={initialData}
+      setInitialData={setInitialData}
     />
   );
 };

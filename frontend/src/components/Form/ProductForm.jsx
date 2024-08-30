@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./ProductForm.css";
 import { useSelector } from "react-redux";
 
-const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
+const ProductForm = ({
+  formType,
+  onSubmit,
+  image,
+  initialData = {},
+  setInitialData,
+}) => {
   const [formData, setFormData] = useState({
     name: "",
     color: "",
@@ -11,15 +17,16 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
     regularPrice: "",
     category: "",
     brand: "",
-    image: null,
+    image: "",
   });
 
   const { isLoading } = useSelector((state) => state.product);
+
   useEffect(() => {
     if (formType === "update" && initialData) {
       setFormData(initialData);
     }
-  }, [formType, initialData]);
+  }, [formType, formData, initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +34,14 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
       ...formData,
       [name]: value,
     });
+  };
+
+  const handleUpdateChange = (e) => {
+    const { name, value } = e.target;
+    setInitialData((prevState) => ({
+      ...prevState,
+      [name]: value, // Update the state with new value
+    }));
   };
 
   const handleImageChange = (e) => {
@@ -54,8 +69,8 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             type="text"
             id="name"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
+            value={formType === "create" ? formData.name : initialData.name}
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -65,8 +80,8 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             type="text"
             id="color"
             name="color"
-            value={formData.color}
-            onChange={handleChange}
+            value={formType === "create" ? formData.color : initialData.color}
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -77,8 +92,8 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             type="text"
             id="price"
             name="price"
-            value={formData.price}
-            onChange={handleChange}
+            value={formType === "create" ? formData.price : initialData.price}
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -89,8 +104,12 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             type="text"
             id="regularPrice"
             name="regularPrice"
-            value={formData.regularPrice}
-            onChange={handleChange}
+            value={
+              formType === "create"
+                ? formData.regularPrice
+                : initialData.regularPrice
+            }
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -99,8 +118,12 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
           <textarea
             id="description"
             name="description"
-            value={formData.description}
-            onChange={handleChange}
+            value={
+              formType === "create"
+                ? formData.description
+                : initialData.description
+            }
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -110,8 +133,8 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             type="text"
             id="brand"
             name="brand"
-            value={formData.brand}
-            onChange={handleChange}
+            value={formType === "create" ? formData.brand : initialData.brand}
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -121,8 +144,10 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             type="text"
             id="category"
             name="category"
-            value={formData.category}
-            onChange={handleChange}
+            value={
+              formType === "create" ? formData.category : initialData.category
+            }
+            onChange={formType === "create" ? handleChange : handleUpdateChange}
             required
           />
         </div>
@@ -147,6 +172,8 @@ const ProductForm = ({ formType, onSubmit, image, initialData = {} }) => {
             ? isLoading
               ? "Loading..."
               : "Create Product"
+            : isLoading
+            ? "Loading..."
             : "Update Product"}
         </button>
       </form>

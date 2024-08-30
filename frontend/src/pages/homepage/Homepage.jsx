@@ -30,7 +30,7 @@ const Homepage = () => {
 
   const { product } = useSelector((state) => state.product);
 
-  const productss = product.map((item) => {
+  const productss = product?.map((item) => {
     const { _id, image, name, price, description } = item;
 
     return (

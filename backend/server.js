@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import UserRoute from "./Routes/userRoute.js";
 import ProductRoute from "./Routes/productRoute.js";
 import { errorHandler } from "./middleware/errorMiddleware.js";
-import fs from "fs";
 import path from "path";
 import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
@@ -54,7 +53,6 @@ if (process.env.NODE_ENV === "production") {
     res.send("Home Page...");
   });
 }
-console.log(__dirname);
 
 //-------------------------deployment---------------------------------//
 

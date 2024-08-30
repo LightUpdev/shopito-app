@@ -24,7 +24,7 @@ const Login = () => {
     if (!email || !password) {
       return toast.error("All fields are required");
     }
-    if (password.length < 6) {
+    if (password?.length < 6) {
       return toast.error("password must be at least 6 characters");
     }
     if (!validateEmail(email)) {

@@ -22,6 +22,7 @@ const activeLink = ({ isActive }) => (isActive ? `${styles.isActive}` : "");
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  // eslint-disable-next-line
   const [scrollPage, setScrollPage] = useState(false);
 
   const dispatch = useDispatch();
@@ -37,21 +38,23 @@ const Header = () => {
 
   // logout user
   const logoutUser = async () => {
-    dispatch(logout());
-    dispatch(RESET_AUTH());
-    navigate("/login");
-    localStorage.clear("token");
-  };
-
-  const fixNavbar = () => {
-    if (window.screenY > 50) {
-      setScrollPage(true);
-    } else {
-      setScrollPage(true);
+    const res = await dispatch(logout());
+    if (res) {
+      dispatch(RESET_AUTH());
+      navigate("/login");
+      localStorage.clear("token");
     }
   };
 
-  window.addEventListener("scroll", fixNavbar);
+  // const fixNavbar = () => {
+  //   if (window.screenY < 100) {
+  //     setScrollPage(false);
+  //   } else {
+  //     setScrollPage(true);
+  //   }
+  // };
+
+  // window.addEventListener("scroll", fixNavbar);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);

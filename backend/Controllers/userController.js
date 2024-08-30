@@ -167,6 +167,17 @@ const updatePhoto = asyncHandler(async (req, res) => {
   res.status(200).json(updatedUser);
 });
 
+// get all users
+const getAllUser = asyncHandler(async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
 export {
   registerUser,
   loginUser,
@@ -175,4 +186,5 @@ export {
   verifyUser,
   getUser,
   logoutUser,
+  getAllUser,
 };

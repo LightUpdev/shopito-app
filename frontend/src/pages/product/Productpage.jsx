@@ -1,17 +1,23 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./productPage.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { shortenText } from "../../utils";
+import { useEffect } from "react";
+import { getUser } from "../../Redux/Features/auth/authSlice";
 
 const ProductPage = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
   const { product } = useSelector((state) => state.product);
 
   const singleProduct = product.find((product) => product._id === id);
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const role = user.role;
+  const role = user?.role;
 
   // go back
   const goBack = () => {
@@ -39,7 +45,9 @@ const ProductPage = () => {
         />
         <div className="product-info">
           <h1 className="product-name">{singleProduct.name}</h1>
-          <p className="product-description">{shortenText(singleProduct.description,500) }</p>
+          <p className="product-description">
+            {shortenText(singleProduct.description, 500)}
+          </p>
           <div
             style={{
               display: "flex",

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 const Slider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slideLength = sliderData.length;
+  const slideLength = sliderData?.length;
   let autoScroll = true;
   let slideInterval;
   const intervalTime = 5000;

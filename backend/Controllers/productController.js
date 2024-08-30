@@ -91,39 +91,28 @@ const deleteProduct = asyncHandler(async (req, res) => {
 // update product
 const updateProduct = asyncHandler(async (req, res) => {
   try {
-    const {
-      name,
-      color,
-      price,
-      regularPrice,
-      description,
-      category,
-      brand,
-      image,
-    } = req.body;
-
     const product = await Product.findById(req.params.id);
     if (!product) {
       res.status(404);
       throw new Error("Product not found.");
     }
 
-    // update product
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
+    // updated product
+    const updatingProduct = await Product.findByIdAndUpdate(
+      product?._id,
       {
-        name,
-        color,
-        price,
-        regularPrice,
-        description,
-        category,
-        brand,
-        image,
+        name: req.body.name || product.name,
+        color: req.body.color || product.color,
+        price: req.body.price || product.price,
+        regularPrice: req.body.regularPrice || product.regularPrice,
+        description: req.body.description || product.description,
+        category: req.body.category || product.category,
+        brand: req.body.brand || product.brand,
+        image: req.body.image || product.image,
       },
       { new: true, runValidators: true }
     );
-    res.status(201).json(updatedProduct);
+    res.status(200).json(updatingProduct);
   } catch (error) {
     res.status(400);
     throw new Error(error.message);

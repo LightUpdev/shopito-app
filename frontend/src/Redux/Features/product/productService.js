@@ -18,9 +18,11 @@ const createdProduct = async (productData) => {
 const updateProduct = async (productData, id) => {
   try {
     const response = await axiosInstance.patch(`${API_URL}/${id}`, productData);
-    const data = await response.data;
-    console.log(data);
-    return await data;
+    if (response) {
+      const data = await response.data;
+      console.log(data);
+      return await data;
+    }
   } catch (error) {
     console.log(error);
   }

@@ -1,5 +1,5 @@
 export const shortenText = (text, n) => {
-  if (text && text.length > n) {
+  if (text && text?.length > n) {
     const shortenedText = text.substring(0, n).concat("...");
     return shortenedText;
   }

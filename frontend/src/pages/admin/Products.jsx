@@ -32,33 +32,33 @@ const Products = () => {
         ) : product?.length < 1 ? (
           <h3>No product to display</h3>
         ) : (
-          product?.map((product) => (
-            <div key={product._id} className="product-card">
+          product?.map((product, index) => (
+            <div key={product?._id + index} className="product-card">
               <img
-                src={product.image}
-                alt={product.name}
+                src={product?.image}
+                alt={product?.name}
                 className="product-image"
                 style={{ width: "100%", height: "200px", cursor: "pointer" }}
-                onClick={() => navigate(`/product-details/${product._id}`)}
+                onClick={() => navigate(`/product-details/${product?._id}`)}
               />
-              <h2 className="product-name">{product.name}</h2>
+              <h2 className="product-name">{product?.name}</h2>
               <p className="product-description">
-                {shortenText(product.description, 18)}
+                {shortenText(product?.description, 18)}
               </p>
               <div className="actions-btn">
                 <button
                   className="btn-warning"
                   onClick={() =>
-                    navigate(`/admin/update-product/${product._id}`)
+                    navigate(`/admin/update-product/${product?._id}`)
                   }
                 >
                   Update
                 </button>
-                <p className="product-price">${product.price}</p>
+                <p className="product-price">${product?.price}</p>
 
                 <button
                   className="btn-danger"
-                  onClick={() => deletedProduct(product._id)}
+                  onClick={() => deletedProduct(product?._id)}
                 >
                   Delete
                 </button>
