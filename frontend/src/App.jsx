@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/homepage/Homepage";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
@@ -57,7 +57,7 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
+      <Router>
         <ToastContainer />
         <Header isAuthenticated={isAuthenticated} />
         <Routes>
@@ -69,10 +69,10 @@ const App = () => {
           <Route path="/admin/products" element={<Products />} />
           <Route path="/admin/create-product" element={<CreateProduct />} />
           <Route path="/admin/update-product/:id" element={<UpdateProduct />} />
-          <Route path="/404" element={<DeadEnd />} />
+          <Route path="*" element={<DeadEnd />} />
         </Routes>
         <Footer />
-      </BrowserRouter>
+      </Router>
     </>
   );
 };
